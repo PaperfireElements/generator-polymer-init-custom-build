@@ -1,6 +1,6 @@
 {
   "name": "generator-polymer-init-paperfire-app",
-  "version": "2.0.1",
+  "version": "0.0.1-alpha",
   "description": "A starting point for building Polymer 2.x apps using polymer-build with options for firebase and redux",
   "authors": [
     "ackushiw"
