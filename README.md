@@ -1,6 +1,6 @@
-# generator-polymer-init-custom-build
+# generator-polymer-init-paperfire-app
 
-[![Build Status](https://travis-ci.org/PolymerElements/generator-polymer-init-custom-build.svg?branch=master)](https://travis-ci.org/PolymerElements/generator-polymer-init-custom-build)
+[![Build Status](https://travis-ci.org/PolymerElements/generator-polymer-init-paperfire-app.svg?branch=master)](https://travis-ci.org/PolymerElements/generator-polymer-init-paperfire-app)
 
 This template is a starting point for building apps using Polymer Starter Kit
 with a custom gulp process leveraging [polymer-build](https://github.com/Polymer/polymer-build),
@@ -15,7 +15,7 @@ generator-polymer-init-custom-build using [npm](https://www.npmjs.com) (we
 assume you have pre-installed [node.js](https://nodejs.org)).
 
     npm install -g polymer-cli
-    npm install -g generator-polymer-init-custom-build
+    npm install -g generator-polymer-init-paperfire-app
 
 ##### Initialize project from template
 
@@ -23,14 +23,14 @@ Generate your new project using `polymer init`:
 
     mkdir my-app
     cd my-app
-    polymer init custom-build
+    polymer init paperfire-app
 
 ### Start the development server
 
-This command serves the app at `http://localhost:8080` and provides basic URL
-routing for the app:
+This command serves the app at `http://localhost:3000` and provides basic URL
+routing for the app with live reload using browersync:
 
-    polymer serve --open
+    npm run dev
 
 ### Build
 
@@ -48,7 +48,7 @@ the same library that powers Polymer CLI. Out of the box it will clean the
 
 This command serves the minified version of the app at `http://localhost:8080`:
 
-    polymer serve build/
+    firebase serve
 
 ### Run tests
 
