@@ -1,0 +1,51 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/<%= appShell %>.html",
+  "fragments": [
+    "src/routes/page-home.html",
+    "src/routes/page-login.html",
+    "src/routes/page-view404.html"
+  ],
+  "sources": [
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "favicon.ico",
+    "bower_components/webcomponentsjs/*.js",
+    "node_modules/redux/dist/redux.min.js"
+  ],
+  "builds": [{
+    "name": "default",
+    "addServiceWorker": true,
+    "insertPrefetchLinks": true,
+    "swPrecacheConfig": "sw-precache-config.js",
+    "js": {"compile": false, "minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  },{
+    "name": "dev",
+    "addServiceWorker": true,
+    "swPrecacheConfig": "sw-precache-config.js"
+  },{
+    "name": "bundled",
+    "bundle": true,
+    "addServiceWorker": true,
+    "swPrecacheConfig": "sw-precache-config.js",
+    "js": {"minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  },{
+    "name": "unbundled",
+    "addServiceWorker": true,
+    "swPrecacheConfig": "sw-precache-config.js",
+    "js": {"minify": false},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  }],
+  "lint": {
+    "rules": ["polymer-2"]
+  }
+}

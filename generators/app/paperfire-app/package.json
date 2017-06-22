@@ -1,13 +1,14 @@
 {
-  "name": "paperfire-app",
+  "name": "<%= appProjectName %>",
   "version": "0.0.0",
-  "description": "A Polymer 2.x starter application template using firebase and redux with navigation and \"PRLP\" pattern loading",
+  "description": "<%= appDescription %>",
   "main": "index.html",
-  "directories": {
-    "test": "test"
+  "dependencies": {
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "browser-sync": "^2.18.8",
+    "del": "^2.2.0",
     "eslint": "^3.12.0",
     "eslint-config-google": "^0.7.1",
     "eslint-plugin-html": "^1.7.0",
@@ -19,17 +20,14 @@
   },
   "scripts": {
     "lint": "eslint . --ext js,html --ignore-path .gitignore",
-    "deploy": "polymer build \n firebase deploy",
+    "precache": "sw-precache --config=sw-precache-config.js --root=build/default",
+    "deploy": "npm run build && firebase deploy --only hosting",
     "dev": "polymer serve & npm run watch",
-    "production": "polymer build \n polymer serve build/default",
+    "production": "polymer build && polymer serve build/default",
     "test": "npm run lint && polymer test",
-    "build": "gulp build",
+    "build": "polymer build && npm run precache",
     "watch": "browser-sync start --proxy localhost:8081 --files 'src/**/*.html, src/**/*.js, images/*' "
   },
   "author": "Alexander Kushi-Willis <alexander@ackushiw.com> (http://www.ackushiw.com)",
-  "license": "BSD-3-Clause",
-  "engines": {
-    "node": ">=6.0"
-  },
-  "private": true
+  "license": "UNLICENSED"
 }

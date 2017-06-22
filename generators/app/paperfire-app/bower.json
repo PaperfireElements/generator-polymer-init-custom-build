@@ -1,0 +1,28 @@
+{
+  "name": "<%= appName %>",
+  "version": "0.0.0",
+  "authors": [
+    "<%= author %>"
+  ],
+  "dependencies": {
+    "app-layout": "PolymerElements/app-layout",
+    "app-route": "PolymerElements/app-route",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout",
+    "iron-icon": "PolymerElements/iron-icon",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg",
+    "iron-localstorage": "PolymerElements/iron-localstorage",
+    "iron-media-query": "PolymerElements/iron-media-query",
+    "iron-pages": "PolymerElements/iron-pages",
+    "iron-selector": "PolymerElements/iron-selector",
+    "polymerfire": "firebase/polymerfire",
+    "paper-icon-button": "PolymerElements/paper-icon-button",
+    "polymer": "Polymer/polymer",
+    "webcomponentsjs": "webcomponents/webcomponentsjs",
+    "paper-toast": "PolymerElements/paper-toast",
+    "polymer-redux": "^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "6.0.0"
+  },
+  "private": true
+}

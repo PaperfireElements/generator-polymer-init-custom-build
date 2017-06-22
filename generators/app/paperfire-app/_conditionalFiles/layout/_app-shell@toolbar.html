@@ -1,0 +1,195 @@
+<link rel="import"
+  href="../bower_components/polymer/polymer-element.html">
+<link rel="import"
+  href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import"
+  href="../bower_components/app-route/app-location.html">
+<link rel="import"
+  href="../bower_components/app-route/app-route.html">
+<link rel="import"
+  href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import"
+  href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import"
+  href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import"
+  href="../bower_components/paper-toast/paper-toast.html">
+
+<link rel="import"
+  href="routes/page-home.html">
+<link rel="import"
+  href="app-icons.html">
+<link rel="import"
+  href="app-actions.html">
+<link rel="import"
+  href="redux-store.html">
+
+<dom-module id="<%= appShell %>">
+  <template>
+    <style>
+       :host {
+        height: 100vh;
+        display: block;
+      }
+      .toast-reload a{
+        color: white;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}"></app-route>
+   
+    <firebase-app auth-domain="your-project.firebaseapp.com"
+      database-url="https://your-project.firebaseio.com/"
+      api-key="your-key">
+    </firebase-app>
+      <!-- Main content -->
+    <app-toolbar fixed>
+            <div main-title>[[pageTitle]]</div>
+          </app-toolbar>
+    <iron-pages selected="[[page]]"
+      attr-for-selected="name"
+      fallback-selection="view404"
+      role="main">
+
+      <!--start app-pages-->
+      <page-home name="home"></page-home>
+      <page-login name="login"></page-login>
+      <!--end app-pages-->
+    </iron-pages>
+
+    <paper-toast id="notificationToast"
+      duration="0"
+      on-click="handleNotificationAction"
+      opened="[[notify.open]]"
+      text="[[notify.message]]">
+      <a href$="[[notify.url]]">[[notify.btnText]]</a>
+    </paper-toast>
+
+  </template>
+
+  <script>
+    class <%= appShellClass %> extends ReduxMixin(Polymer.Element) {
+      static get is() { return '<%= appShell %>'; }
+      static get properties() {
+        return {
+          notify: {
+            type: Object,
+            statePath: 'notifications',
+            observer: '_notify'
+          },
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          routeData: Object,
+          subroute: Object,
+          uid: {
+            type: String,
+            statePath: 'user.uid'
+          },
+        };
+      }
+      static get actions() {
+        return {
+          appReload() {
+            return {
+              type: 'APP_WINDOW_REFRESH'
+            }
+          },
+          notifyClose() {
+            return {
+              type: NOTIFY_CLOSE
+            }
+          },
+          notifyHandleAction(notifcationState) {
+            return {
+              type: notifcationState.btnAction,
+              data: notifcationState.data
+            }
+          },
+          notifyUpdateAvailable() {
+            return {
+              type: NOTIFY_APP_UPDATE
+            }
+          },
+          notifyWelcome() {
+            console.log('NOTIFY WELCOME');
+            return {
+              type: NOTIFY_WELCOME
+            }
+          }
+        }
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        if (window.performance && performance.mark)
+          performance.mark('app-shell.connected');
+        
+        // Get Redux state
+        const state = this.getState();
+      }
+
+      ready() {
+        super.ready();
+        const vm = this;
+        // Notifucations handled by redux
+        this.dispatch('notifyWelcome');
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.onstatechange = function (e) {
+            if (e.target.state === 'redundant') {
+              vm.dispatch('notifyUpdateAvailable');
+            }
+          };
+        }
+      }
+
+      handleNotificationAction() {
+        this.dispatch('notifyHandleAction', this.notify);
+      }
+
+      _routePageChanged(page) {
+        this.page = page || 'home';
+      }
+
+      _pageChanged(page) {
+        var resolvedPageUrl = this.resolveUrl('routes/page-' + page + '.html');
+
+        Polymer.importHref(
+          resolvedPageUrl,
+          null,
+          null,
+          true);
+      }
+
+      _notify(notifyState) {
+        const vm = this;
+        if (notifyState.opened) {
+          this.$.notificationToast.open();
+          if (notifyState.duration && notifyState.duration > 0) {
+            setTimeout(function() {
+              vm.dispatch('notifyClose');
+            },
+            notifyState.duration)
+          }
+        } else {
+          this.$.notificationToast.close();
+        }
+      }
+    }
+
+    window.customElements.define(<%= appShellClass %>.is, <%= appShellClass %>);
+  </script>
+</dom-module>

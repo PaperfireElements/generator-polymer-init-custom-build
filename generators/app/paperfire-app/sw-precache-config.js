@@ -8,24 +8,20 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict';
+/* eslint-env node */
 
-const path = require('path');
-
-const assert = require('yeoman-assert');
-const helpers = require('yeoman-test');
-
-describe('generator-polymer-init-paperfire-app:app', function() {
-  before(function() {
-    return helpers.run(path.join(__dirname, '../generators/app'))
-      .toPromise();
-  });
-
-  it('creates files', function() {
-    assert.file([
-      'gulpfile.js',
-      'package.json',
-      'README.md',
-    ]);
-  });
-});
+module.exports = {
+  staticFileGlobs: [
+    'index.html',
+    'manifest.json',
+    'images/**/*',
+    'src/styles/**/*',
+    'bower_components/webcomponentsjs/*',
+  ],
+  cacheId: 'v0.0.0',
+  navigateFallback: 'index.html',
+  navigateFallbackWhitelist: [
+    /^(?!\/__).*/, // firebase
+    /^\/(index.html)?$/, // webcomponents.org
+    ],
+};

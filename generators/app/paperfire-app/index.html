@@ -1,0 +1,131 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator"
+    content="Polymer Paperfire App">
+  <meta name="viewport"
+    content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title><%= appName %></title>
+  <meta name="description"
+    content="<%= appDescription %>">
+
+  <link rel="icon"
+    href="/favicon.ico">
+
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest"
+    href="/manifest.json">
+
+  <!-- See https://goo.gl/qRE0vM -->
+  <meta name="theme-color"
+    content="#FFF">
+  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+  <meta name="mobile-web-app-capable"
+    content="yes">
+  <meta name="application-name"
+    content="<%= appName %>">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable"
+    content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent">
+  <meta name="apple-mobile-web-app-title"
+    content="<%= appName %>">
+  <link rel="apple-touch-icon"
+    sizes="180x180"
+    href="/images/manifest/apple-touch-icon.png"
+    async>
+  <link rel="icon"
+    type="image/png"
+    href="/images/manifest/favicon-32x32.png"
+    sizes="32x32"
+    async>
+  <link rel="mask-icon"
+    href="/images/manifest/safari-pinned-tab.svg"
+    color="#5bbad5"
+    async>
+  <link rel="shortcut icon"
+    href="/favicon.ico"
+    async>
+  <meta name="msapplication-config"
+    content="/images/manifest/browserconfig.xml">
+
+
+  <!-- Homescreen icons -->
+  <link rel="apple-touch-icon"
+    href="/images/manifest/icon-48x48.png">
+  <link rel="apple-touch-icon"
+    sizes="72x72"
+    href="/images/manifest/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon"
+    sizes="96x96"
+    href="/images/manifest/apple-touch-icon-96x96.png">
+  <link rel="apple-touch-icon"
+    sizes="144x144"
+    href="/images/manifest/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon"
+    sizes="192x192"
+    href="/images/manifest/apple-touch-icon-192x192.png">
+
+  <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage"
+    content="/images/manifest/mstile-144x144.png">
+  <meta name="msapplication-TileColor"
+    content="#FFF">
+  <meta name="msapplication-tap-highlight"
+    content="no">
+
+  <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+  <script src="/bower_components/webcomponentsjs/webcomponents-loader.js" async></script>
+  <script src="/node_modules/redux/dist/redux.min.js" async></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+    }
+  </script>
+
+  <!-- Load your application shell -->
+  <link rel="import"
+    href="/src/<%= appShell %>.html" async>
+
+  <!-- Add any global styles for body, document, etc. -->
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+    }
+    
+    * {
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <<%= appShell %>>
+    <div class="noscript-container">
+      <noscript>Looks like you don't have javascript enabled</noscript>
+    </div>
+  </<%= appShell %>>
+  <script>
+    window.performance && performance.mark && performance.mark('index.html');
+  </script>
+</body>
+
+</html>

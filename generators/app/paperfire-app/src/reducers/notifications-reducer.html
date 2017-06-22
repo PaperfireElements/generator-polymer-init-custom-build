@@ -1,0 +1,55 @@
+<link rel="import" href="../app-actions.html">
+<script>
+    'use strict';
+
+    class NotificationsReducer {
+        constructor() {
+            this.default = {
+                btnAction: null,
+                btnText: '',
+                message: 'default message from depend test',
+                opened: false,
+                url: '#'
+            };
+            this.reducer = (state, action) => {
+                if (!state)
+                    return this.default;
+                switch (action.type) {
+                    case NOTIFY_APP_UPDATE:
+                        return Object.assign({}, state, {
+                            btnAction: 'APP_WINDOW_REFRESH',
+                            btnText: 'Reload to update',
+                            data: {},
+                            message: 'New version available',
+                            opened: true,
+                        });
+                    case NOTIFY_CLOSE:
+                        return Object.assign({}, state, {
+                            btnAction: null,
+                            message: '',
+                            opened: false,
+                            url: '#'
+                        });
+                    case NOTIFY_OPEN:
+                        return Object.assign({}, state, {
+                            btnAction: action.btnAction,
+                            btnText: action.btnText,
+                            message: action.message,
+                            opened: true,
+                            url: action.url
+                        });
+                    case NOTIFY_WELCOME:
+                        return Object.assign({}, state, {
+                            btnAction: 'NOTIFY_CLOSE',
+                            btnText: 'Close',
+                            message: 'welcome to depend test',
+                            opened: true
+                        });
+                    default:
+                        return state;
+                }
+            };
+        }
+    }
+
+</script>
